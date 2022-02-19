@@ -27,6 +27,17 @@ public class MoviesRepository {
         }
     }
 
+    public void updateAverageRating(long movieId, double avgRating) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement ps = connection.prepareStatement("update movies set avg_rating=? where id=?")) {
+            ps.setDouble(1, avgRating);
+            ps.setLong(2, movieId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new IllegalStateException("Can not update average rating!", e);
+        }
+    }
+
     private long getGeneratedId(PreparedStatement ps) throws SQLException {
         try (ResultSet rs = ps.getGeneratedKeys()) {
             if (rs.next()) {
@@ -62,7 +73,9 @@ public class MoviesRepository {
         try (ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 return Optional.of(new Movie(rs.getLong("id"),
-                        rs.getString("title"), rs.getDate("release_date").toLocalDate()));
+                        rs.getString("title"),
+                        rs.getDate("release_date").toLocalDate(),
+                        rs.getDouble("avg_rating")));
             }
             return Optional.empty();
         }
@@ -73,7 +86,8 @@ public class MoviesRepository {
         while (rs.next()) {
             Movie movie = new Movie(rs.getLong("id"),
                     rs.getString("title"),
-                    rs.getDate("release_date").toLocalDate());
+                    rs.getDate("release_date").toLocalDate(),
+                    rs.getDouble("avg_rating"));
             result.add(movie);
         }
         return result;

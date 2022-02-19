@@ -1,0 +1,1 @@
+alter table `movies-actors-test`.movies add column avg_rating numeric(3,1);

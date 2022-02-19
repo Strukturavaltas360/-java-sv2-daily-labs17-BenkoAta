@@ -41,7 +41,7 @@ class MoviesRepositoryTest {
         assertEquals(2, actual.size());
         assertEquals(idTitle1, actual.get(0).getId());
         assertEquals("title1", actual.get(0).getTitle());
-        assertEquals(date1, actual.get(0).getRelease_date());
+        assertEquals(date1, actual.get(0).getReleaseDate());
     }
 
 }

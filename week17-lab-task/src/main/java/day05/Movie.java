@@ -5,12 +5,14 @@ import java.time.LocalDate;
 public class Movie {
     private Long id;
     private String title;
-    private LocalDate release_date;
+    private LocalDate releaseDate;
+    private double avgRating;
 
-    public Movie(Long id, String title, LocalDate release_date) {
+    public Movie(Long id, String title, LocalDate releaseDate, double avgRating) {
         this.id = id;
         this.title = title;
-        this.release_date = release_date;
+        this.releaseDate = releaseDate;
+        this.avgRating = avgRating;
     }
 
     public Long getId() {
@@ -21,16 +23,11 @@ public class Movie {
         return title;
     }
 
-    public LocalDate getRelease_date() {
-        return release_date;
+    public LocalDate getReleaseDate() {
+        return releaseDate;
     }
 
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", release_date=" + release_date +
-                '}';
+    public double getAvgRating() {
+        return avgRating;
     }
 }
